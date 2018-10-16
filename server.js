@@ -47,18 +47,19 @@ app.delete(...); // Delete an item
 
 //app.listen(3500);
 
-app.configure(function() {
-  // Set the IP and port to use the OpenShift variables.
-  app.set('port', process.env.OPENSHIFT_NODEJS_PORT ||  process.env.OPENSHIFT_INTERNAL_PORT || process.env.PORT || 3000);
-  app.set('ip', process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost');
-});
 
 // ...
 
-// Set the app.listen to use the port and ip.
-app.listen(app.get('port'), app.get('ip'), function(){
-  console.log("Express server listening on " + app.get('ip') + ":" + app.get('port'));
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+
+app.listen(server_port, server_ip_address, function () {
+
+    console.log( "Listening on " + server_ip_address + ", server_port " + server_port  );
+
 });
+
 
 
 /*************   to RUN the server:
