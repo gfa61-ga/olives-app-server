@@ -17,7 +17,7 @@ app.use(cors());
 
 app.use(express.json()); // app.use(bodyParser.json());
 
-app.use('/suppliers',  suppliers);
+//app.use('/suppliers',  suppliers);
 
 
 app.get('/pickups', function(req, res) {
@@ -47,14 +47,18 @@ app.delete(...); // Delete an item
 
 //app.listen(3500);
 
-var http = require('http');
-
-var server = http.createServer(function(req, res) {
-  res.writeHead(200);
-  res.end('Hello World');
+app.configure(function() {
+  // Set the IP and port to use the OpenShift variables.
+  app.set('port', process.env.OPENSHIFT_NODEJS_PORT ||  process.env.OPENSHIFT_INTERNAL_PORT || process.env.PORT || 3000);
+  app.set('ip', process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost');
 });
-server.listen(8080);
 
+// ...
+
+// Set the app.listen to use the port and ip.
+app.listen(app.get('port'), app.get('ip'), function(){
+  console.log("Express server listening on " + app.get('ip') + ":" + app.get('port'));
+});
 
 
 /*************   to RUN the server:
