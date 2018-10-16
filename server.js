@@ -45,7 +45,17 @@ app.patch(...); // Update an item
 app.delete(...); // Delete an item
 */
 
-app.listen(3500);
+//app.listen(3500);
+
+var http = require('http');
+
+var server = http.createServer(function(req, res) {
+  res.writeHead(200);
+  res.end('Hello World');
+});
+server.listen(8080);
+
+
 
 /*************   to RUN the server:
 // npm run dev   ** Whenever we make a change in the code and save,
