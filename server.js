@@ -45,7 +45,7 @@ app.patch(...); // Update an item
 app.delete(...); // Delete an item
 */
 
-app.listen(3500);
+app.listen(process.env.PORT); // app.listen(3500);
 /*
 var http = require('http');
 
