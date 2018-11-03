@@ -6,10 +6,10 @@ router.get('/', function(req, res) { //router.get('/getall', function(req, res) 
   var db = {};
   var MongoClient = require('mongodb').MongoClient;
   MongoClient.connect(
-    'mongodb://root:delta5@172.31.63.34:27017/olives)',
+    'mongodb://root:delta5@ds249503.mlab.com:49503/olives',   //'mongodb://127.0.0.1/',
     {useNewUrlParser: true},
     function(err, client) {
-      db.collection = client.collection('suppliers');
+      db.collection = client.db('olives').collection('suppliers'); //db.collection = client.db('olives').collection('suppliers');
       db.collection.find({}).toArray(function (err, doc) {
           if (err) {
               console.log(err); // LogError ????
@@ -27,7 +27,7 @@ router.put('/update/:id', function(req, res) {
   var db = {};
   var MongoClient = require('mongodb').MongoClient;
   MongoClient.connect(
-    'mongodb://172.31.63.34)',
+    'mongodb://127.0.0.1',
     {useNewUrlParser: true},
     function(err, client) {
       db.collection = client.db('olives').collection('suppliers');
@@ -57,7 +57,7 @@ router.post('/add', function(req, res) {
   var MongoClient = require('mongodb').MongoClient;
 
   MongoClient.connect(
-    'mongodb://172.31.63.34)',
+    'mongodb://127.0.0.1',
     {useNewUrlParser: true},
     function(err, client) {
       db.collection = client.db('olives').collection('suppliers');
