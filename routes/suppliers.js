@@ -6,7 +6,7 @@ router.get('/', function(req, res) { //router.get('/getall', function(req, res) 
   var db = {};
   var MongoClient = require('mongodb').MongoClient;
   MongoClient.connect(
-    'mongodb://root:delta5@ds249503.mlab.com:49503/olives',   //'mongodb://127.0.0.1/',
+    process.env.MONGOLAB_URI, // 'mongodb://root:delta5@ds249503.mlab.com:49503/olives',   //'mongodb://127.0.0.1/',
     {useNewUrlParser: true},
     function(err, client) {
       db.collection = client.db('olives').collection('suppliers'); //db.collection = client.db('olives').collection('suppliers');
