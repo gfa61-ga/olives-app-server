@@ -19,7 +19,7 @@ app.use(express.json()); // app.use(bodyParser.json());
 
 app.use('/suppliers',  suppliers); //app.use('/suppliers',  suppliers);
 
-
+/*
 app.get('/pickups', function(req, res) {
   var db = {};
   var MongoClient = require('mongodb').MongoClient;
@@ -39,13 +39,14 @@ app.get('/pickups', function(req, res) {
     }
   );
 });
-
+*/
 /*
 app.patch(...); // Update an item
 app.delete(...); // Delete an item
 */
 
-app.listen(process.env.PORT); // app.listen(3500);
+app.listen(process.env.PORT || 3500); // for localhost it will listen to port:3500 --> app.listen(3500);
+// Heroku dynamically assigns your app a port, stored in: process.env.PORT
 /*
 var http = require('http');
 

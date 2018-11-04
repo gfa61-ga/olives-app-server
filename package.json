@@ -11,7 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies-comments": {
-    "//body-parser: ^1.18.3": "---is replaced by express.json() middleware---"
+    "//body-parser: ^1.18.3": "---is replaced by express.json() middleware---",
+    "//ejs: ^2.4.1": "---is rather not needed..!!---"
   },
   "dependencies": {
     "cors": "^2.8.4",
