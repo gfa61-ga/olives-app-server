@@ -1,4 +1,5 @@
 var express = require('express');
+const ObjectId = require('mongodb').ObjectID;
 
 var router = express.Router();
 
@@ -34,7 +35,7 @@ router.put('/update/:id', function(req, res) {
     function(err, client) {
       db.collection = client.db('olives').collection('suppliers');
       db.collection.findOneAndUpdate(
-        {_id: {$oid: id}},
+        {_id: ObjectId(id)},
         {$set: {...req.body}},
         {returnOriginal: false},
         function (err, doc) {
