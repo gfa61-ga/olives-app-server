@@ -3,13 +3,20 @@ const ObjectId = require('mongodb').ObjectID;
 
 var router = express.Router();
 
+
+// We use environment variable to store the url (containing username and password):
+// heroku config:set MONGOLAB_URI=mongodb://databaseUsername:databasePassword5@ds249503.mlab.com:49503/olives
+var mongodbUrl = process.env.MONGOLAB_URI; // 'mongodb://databaseUsername:databasePassword5@ds249503.mlab.com:49503/olives'
+
+// To use mondodb service in localhost:
+//var mongodbUrl = 'mongodb://127.0.0.1/';
+
+
 router.get('/', function(req, res) { //router.get('/getall', function(req, res) {
   var db = {};
   var MongoClient = require('mongodb').MongoClient;
   MongoClient.connect(
-    // We use environment variable to store the url (containing username and password):
-      // heroku config:set MONGOLAB_URI=mongodb://root:delta5@ds249503.mlab.com:49503/olives
-    process.env.MONGOLAB_URI, // 'mongodb://root:delta5@ds249503.mlab.com:49503/olives', //'mongodb://127.0.0.1/',
+    mongodbUrl,
     {useNewUrlParser: true},
     function(err, client) {
       db.collection = client.db('olives').collection('suppliers'); //db.collection = client.db('olives').collection('suppliers');
@@ -31,7 +38,7 @@ router.put('/update/:id', function(req, res) {
   var {_id, ...updatedSupplier } = req.body;
   var MongoClient = require('mongodb').MongoClient;
   MongoClient.connect(
-    process.env.MONGOLAB_URI, // 'mongodb://127.0.0.1',
+    mongodbUrl,
     {useNewUrlParser: true},
     function(err, client) {
       db.collection = client.db('olives').collection('suppliers');
@@ -61,7 +68,7 @@ router.post('/add', function(req, res) {
   var MongoClient = require('mongodb').MongoClient;
 
   MongoClient.connect(
-    process.env.MONGOLAB_URI, // 'mongodb://127.0.0.1',
+    mongodbUrl,
     {useNewUrlParser: true},
     function(err, client) {
       db.collection = client.db('olives').collection('suppliers');
