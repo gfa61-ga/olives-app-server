@@ -34,7 +34,7 @@ router.put('/update/:id', function(req, res) {
     function(err, client) {
       db.collection = client.db('olives').collection('suppliers');
       db.collection.findOneAndUpdate(
-        {_id: id},
+        {_id: {"$oid" : id}},
         {$set: {...req.body}},
         {returnOriginal: false},
         function (err, doc) {
