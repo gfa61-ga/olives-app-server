@@ -28,6 +28,7 @@ router.get('/', function(req, res) { //router.get('/getall', function(req, res) 
 router.put('/update/:id', function(req, res) {
   var id = req.params.id;  //parseInt(req.params.id);  *** when _id is an integer
   var db = {};
+  var {_id, ...updatedSupplier } = req.body;
   var MongoClient = require('mongodb').MongoClient;
   MongoClient.connect(
     process.env.MONGOLAB_URI, // 'mongodb://127.0.0.1',
@@ -36,7 +37,7 @@ router.put('/update/:id', function(req, res) {
       db.collection = client.db('olives').collection('suppliers');
       db.collection.findOneAndUpdate(
         {_id: ObjectId(id)},
-        {$set: {...req.body}},
+        {$set: {...updatedSupplier}},
         {returnOriginal: false},
         function (err, doc) {
           if (err) {
