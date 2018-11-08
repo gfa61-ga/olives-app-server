@@ -1,3 +1,5 @@
+// I used the 'Using with Express' paragraph from:  https://socket.io/docs/
+
 var express = require('express');
 var cors = require('cors');
 
@@ -26,6 +28,8 @@ module.exports.io = io; // we export 'io' object before we require 'suppliers',
 /*** TODO:
       use Alternate solutions from:
    https://stackoverflow.com/questions/49519200/module-exports-gets-undefined-while-importing-on-another-file
+      Maybe this is useful too:
+   https://stackoverflow.com/questions/24609991/using-socket-io-in-express-4-and-express-generators-bin-www
 ***/
 
 var suppliers = require('./routes/suppliers');
