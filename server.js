@@ -7,10 +7,10 @@ var http = require('http');
 //var bodyParser = require('body-parser')
 var app = express();
 
-
+var port = proccess.env.PORT || 3200;
 var server = http.createServer(app);
 var io = socketIO.listen(server);
-server.listen(3200);  // socket.io real-time server
+server.listen(port);  // socket.io real-time server
 
 io.on('connection', (socket) => {
   console.log('newClientConnected', socket.id);
