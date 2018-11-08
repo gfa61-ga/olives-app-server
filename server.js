@@ -9,7 +9,7 @@ var app = express();
 //var port = 3200;
 var port = proccess.env.PORT + 1 || 3200;
 var server = http.createServer(app);
-var io = socketIO.listen(server);
+var io = socketIO.listen(server,{origins:'*'});
 server.listen(port);  // socket.io real-time server
 
 io.on('connection', (socket) => {
