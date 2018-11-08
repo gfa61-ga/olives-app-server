@@ -10,7 +10,7 @@ var app = express();
 var port = parseInt(process.env.PORT) + 0 || 3200;
 console.log('ioPort:', port)
 var server = http.Server(app);
-var io = socketIO.(server);
+var io = socketIO(server);
 server.listen(port);  // socket.io real-time server
 
 io.on('connection', (socket) => {
