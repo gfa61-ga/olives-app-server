@@ -6,8 +6,8 @@ var http = require('http');
 
 //var bodyParser = require('body-parser')
 var app = express();
-
-var port = proccess.env.PORT || 3200;
+var port = 3200;
+//var port = proccess.env.PORT || 3200;
 var server = http.createServer(app);
 var io = socketIO.listen(server);
 server.listen(port);  // socket.io real-time server
