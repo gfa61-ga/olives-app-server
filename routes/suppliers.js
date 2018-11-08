@@ -1,5 +1,9 @@
+/****** uncomment line 13 or line 16 *******/
+
 var express = require('express');
 const ObjectId = require('mongodb').ObjectID;
+
+var { io } = require('../server');
 
 var router = express.Router();
 
@@ -9,7 +13,7 @@ var router = express.Router();
 var mongodbUrl = process.env.MONGOLAB_URI; // 'mongodb://databaseUsername:databasePassword5@ds249503.mlab.com:49503/olives'
 
 // To use mondodb service in localhost:
-//var mongodbUrl = 'mongodb://127.0.0.1/';
+// var mongodbUrl = 'mongodb://127.0.0.1/';
 
 
 router.get('/', function(req, res) { //router.get('/getall', function(req, res) {
@@ -51,6 +55,12 @@ router.put('/update/:id', function(req, res) {
               console.log(err);
           } else {
              //console.log(doc);
+            if (doc['lastErrorObject']['n'] === 1) {
+              io.emit('updateSupplier', {
+                updatedSupplier: doc['value'],
+                type: 'updateSupplier'
+              }); //console.log(io)
+            }
             res.status(200).json({
               "n": doc["lastErrorObject"]["n"],
               "ok": doc["ok"],
@@ -77,6 +87,14 @@ router.post('/add', function(req, res) {
             console.log(err);
         } else {
            //console.log(doc);
+          if (doc['result']['n'] === 1) {
+            io.emit('addSupplier', {
+              newSupplier: req.body, // new _id is automatically added to req.body..!!!
+              _id: doc['ops'][0]['_id'],
+              type: 'addSupplier'
+            }); //console.log(io)
+          }
+
           res.status(200).json({
             "n": doc["result"]["n"],
             "ok": doc["result"]["ok"],

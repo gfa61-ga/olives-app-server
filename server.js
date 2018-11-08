@@ -1,9 +1,33 @@
 var express = require('express');
 var cors = require('cors');
+
+var socketIO = require('socket.io');
+var http = require('http');
+
 //var bodyParser = require('body-parser')
 var app = express();
-var suppliers = require('./routes/suppliers');
 
+
+var server = http.createServer(app);
+var io = socketIO.listen(server);
+server.listen(3200);  // socket.io real-time server
+
+io.on('connection', (socket) => {
+  console.log('newClientConnected', socket.id);
+  // send a message to everyone except from the current socket:
+  /*socket.broadcast.emit('testTask', {
+    name: 'test'
+  }); */
+});
+
+module.exports.io = io; // we export 'io' object before we require 'suppliers',
+                        // because 'suppliers.js' needs to import this 'io' object
+/*** TODO:
+      use Alternate solutions from:
+   https://stackoverflow.com/questions/49519200/module-exports-gets-undefined-while-importing-on-another-file
+***/
+
+var suppliers = require('./routes/suppliers');
 app.use(cors());
 
 /*
@@ -47,6 +71,10 @@ app.delete(...); // Delete an item
 
 app.listen(process.env.PORT || 3500); // for localhost it will listen to port:3500 --> app.listen(3500);
 // Heroku dynamically assigns your app a port, stored in: process.env.PORT
+
+
+
+
 /*
 var http = require('http');
 
