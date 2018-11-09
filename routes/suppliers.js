@@ -55,12 +55,21 @@ router.put('/update/:id', function(req, res) {
               console.log(err);
           } else {
              //console.log(doc);
+
+            /*** TODO
+              client that requests the update is updated twice:
+                1  through fetch responce and
+                2. through io.emit
+              This needs to change..!!
+            ***/
+
             if (doc['lastErrorObject']['n'] === 1) {
               io.emit('updateSupplier', {
                 updatedSupplier: doc['value'],
                 type: 'updateSupplier'
               }); //console.log(io)
             }
+
             res.status(200).json({
               "n": doc["lastErrorObject"]["n"],
               "ok": doc["ok"],
@@ -87,6 +96,14 @@ router.post('/add', function(req, res) {
             console.log(err);
         } else {
            //console.log(doc);
+
+          /*** TODO
+            client that requests the addition is updated twice:
+              1  through fetch responce and
+              2. through io.emit
+            This needs to change..!!
+          ***/
+
           if (doc['result']['n'] === 1) {
             io.emit('addSupplier', {
               newSupplier: req.body, // new _id is automatically added to req.body..!!!
